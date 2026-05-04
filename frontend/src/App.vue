@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div id="app">
     <Navbar />
-    <router-view />
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
     <Footer />
     <WhatsAppButton />
   </div>

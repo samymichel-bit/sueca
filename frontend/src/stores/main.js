@@ -2,10 +2,12 @@ import { defineStore } from 'pinia';
 import api from '@/api';
 
 export const useMainStore = defineStore('main', {
-  state: () => ({
+state: () => ({
     services: [],
     projects: [],
     testimonials: [],
+    teamMembers: [],
+    talents: [],
   }),
   actions: {
     async fetchServices() {
@@ -16,9 +18,7 @@ export const useMainStore = defineStore('main', {
       const { data } = await api.get('/projects/');
       this.projects = data;
     },
-    async fetchTestimonials() {
+async fetchTestimonials() {
       const { data } = await api.get('/testimonials/');
-      this.testimonials = data;
-    },
-  },
+      this.testimonials
 });

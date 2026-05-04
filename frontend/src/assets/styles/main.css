@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Lora:wght@400;500&family=Orbitron:wght@400;700&family=Rajdhani:wght@500&display=swap');
 
 @layer base {
   * {
@@ -30,19 +30,15 @@
   ::-webkit-scrollbar-track {
     background: #0a0a0f;
   }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #00f0ff, #7b2ff7);
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #D4AF37, #C87A5C);
     border-radius: 4px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #00f0ff, #f207b8);
-  }
+  ::-webkit
 }
 
 @layer components {
-  /* ===== NEON GLOW EFFECTS ===== */
-  .neon-cyan {
-    box-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #00f0ff40;
+
   }
   .neon-purple {
     box-shadow: 0 0 5px #7b2ff7, 0 0 10px #7b2ff7, 0 0 20px #7b2ff7, 0 0 40px #7b2ff740;
@@ -243,8 +239,19 @@
     animation: pulseGlow 2s ease-in-out infinite;
   }
   @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 5px #00f0ff40, 0 0 10px #00f0ff20; }
-    50% { box-shadow: 0 0 20px #00f0ff80, 0 0 40px #00f0ff40; }
+    0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.4), 0 0 10px rgba(212, 175, 55, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(212, 175, 55, 0.4); }
+  }
+
+  /* WhatsApp specific */
+  @keyframes pulseHalo {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+  @keyframes labelSlide {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
   }
   
   /* ===== TEXT SHADOWS ===== */
@@ -257,6 +264,16 @@
 }
 
 @layer utilities {
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
   .text-shadow-gold {
     text-shadow: 0 2px 12px rgba(212, 175, 55, 0.3);
   }

@@ -1,51 +1,46 @@
 <template>
   <div>
-    <!-- Hero Futuriste -->
-    <section class="relative hero-futur text-white py-48 text-center mt-16 overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-noir via-noir to-bleu text-white py-32 text-center mt-16 overflow-hidden min-h-screen flex items-center">
       <HeroParticles />
-      <!-- Grille décorative -->
+      <!-- Grille décorative subtile -->
       <div class="absolute inset-0 opacity-10 pointer-events-none">
-        <div class="absolute inset-0" style="background-image: linear-gradient(rgba(0,240,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+        <div class="absolute inset-0" style="background-image: linear-gradient(rgba(212,175,55,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.2) 1px, transparent 1px); background-size: 50px 50px;"></div>
       </div>
-      <div class="relative z-10 container mx-auto px-4">
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black tracking-tight leading-tight mb-6">
+
+      <div class="relative z-10 w-full">
+        <h1 class="text-4xl md:text-6xl font-heading font-black tracking-tight">
           Éclairez votre 
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan via-purple to-pink gradient-text-neon">vision</span>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-or to-terre">vision</span>
         </h1>
-        <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light">Consulting • Coaching • Événementiel — une agency, un écosystème.</p>
+        <p class="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-light">Consulting • Coaching • Événementiel — une agence, un écosystème.</p>
         <div class="mt-12 flex gap-6 justify-center flex-wrap">
-          <router-link to="/services" class="btn-futur-primary">
+          <router-link to="/services" class="bg-gradient-to-r from-or to-terre text-black px-8 py-4 rounded-full font-bold text-sm md:text-base hover:shadow-xl hover:shadow-or/20 transition transform hover:-translate-y-1">
             Découvrir nos services
           </router-link>
-          <router-link to="/contact" class="btn-futur-outline">
+          <router-link to="/contact" class="border-2 border-or text-or px-8 py-4 rounded-full font-bold text-sm md:text-base hover:bg-or hover:text-black transition transform hover:-translate-y-1">
             Prendre rendez-vous
           </router-link>
         </div>
       </div>
     </section>
 
-    <!-- Services avec cartes futuristes -->
-    <section class="py-24 px-4 container mx-auto bg-dark">
-      <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-4 text-center">
-        Notre <span class="gradient-text-neon">expertise</span>
+    <!-- Services -->
+    <section class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-heading font-bold text-noir mb-12 text-center">
+        Notre <span class="bg-clip-text text-transparent bg-gradient-to-r from-or to-terre">expertise</span>
       </h2>
-      <p class="text-gray-400 text-center mb-16 max-w-xl mx-auto">Des solutions innovantes pour propulser votre entreprise vers le futur.</p>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <ServiceCard v-for="s in store.services" :key="s.id" :service="s" />
       </div>
     </section>
 
     <!-- Témoignages -->
-    <section class="py-24 px-4 bg-darkSecondary/50 relative overflow-hidden">
-      <!-- Decorations -->
-      <div class="absolute top-0 left-0 w-64 h-64 bg-cyan/5 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-0 right-0 w-64 h-64 bg-purple/5 rounded-full blur-3xl"></div>
-      
+    <section class="py-24 px-4 bg-creme relative overflow-hidden">
       <div class="container mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-4 text-center">
-          Ils nous font <span class="gradient-text-neon">confiance</span>
+        <h2 class="text-4xl font-heading font-bold text-noir mb-12 text-center">
+          Ils nous font <span class="bg-clip-text text-transparent bg-gradient-to-r from-or to-terre">confiance</span>
         </h2>
-        <p class="text-gray-400 text-center mb-16 max-w-xl mx-auto">Découvrez ce que nos clients disent de notre collaboration.</p>
         <div class="grid md:grid-cols-2 gap-8">
           <TestimonialCard v-for="t in store.testimonials" :key="t.id" :testimonial="t" />
         </div>

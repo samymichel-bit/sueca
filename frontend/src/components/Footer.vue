@@ -6,8 +6,7 @@
     
     <div class="container mx-auto px-4 relative z-10">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-        <!-- Brand -->
-        <div class="lg:col-span-2">
+
           <h3 class="text-2xl font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple mb-4">
             <span class="text-cyan">◆</span> SUECA
           </h3>
