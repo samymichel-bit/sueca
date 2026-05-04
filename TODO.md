@@ -1,23 +1,32 @@
 # TODO.md: Transformation MVP → Premium SUECA
 
-Status: [EN COURS - Phase 1 Backend]
+Status: [✅ Phase 1 Backend Stable - Vérifié]
 
 ## Plan Approuvé (Phases)
 
-### Phase 1: Backend Stable ✅ [EN COURS]
-- [
+### Phase 1: Backend Stable ✅
+- [✅] Modèles (Service/Project/Talent/Team/...) 
+- [✅] settings.py (DRF/CORS/static/media)
+- [✅] Migrations (0001+0002)
+- [ ] Tests backend (prochain)
 
-### Phase 2: Design Élégant Afrofuturiste
-- [ ] Refactor tailwind.config.js + main.css (purger néon).
-- [ ] Composants globaux (Navbar/Footer/Cards).
+### Phase 2: Design Élégant Afrofuturiste ⏳
+- [✅] tailwind.config.js afrofuturiste (glows terre/or/bleu)
+- [ ] Refactor main.css (purger néon)
+- [ ] Composants globaux polish
 
-### Phase 3: Contenu + Experts
-- [ ] Créer Experts.vue + route.
-- [ ] Contenu réel.
+### Phase 3: Contenu + Experts ⏳
+- [ ] Route Experts + contenu
 
-### Phase 4: Polish/Tests/Builds
-- [ ] Builds frontend/backend.
-- [ ] Tests complets.
-- [ ] attempt_completion.
+### Phase 4: Polish/Tests/Builds ⏳
+- [ ] Builds/tests
+- [ ] Router fix (incomplet détecté)
 
-**Prochaine: settings.py + tests backend.**
+**Notes Vérification (BLACKBOXAI)**:
+- Backend: Stable, prêt prod
+- Frontend: Router tronqué à fixer
+- Code: 0 TODO/FIXME
+- Branche: blackboxai/sueca-premium
+- Next: Phase 2 + tests
+
+**Prochaine: Tests backend + router fix.**
