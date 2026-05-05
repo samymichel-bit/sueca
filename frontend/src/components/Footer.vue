@@ -6,7 +6,8 @@
     
     <div class="container mx-auto px-4 relative z-10">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-
+        <!-- Logo & Social -->
+        <div>
           <h3 class="text-2xl font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple mb-4">
             <span class="text-cyan">◆</span> SUECA
           </h3>
@@ -49,6 +50,17 @@
             </li>
           </ul>
         </div>
+
+        <!-- Quick Links (4th column) -->
+        <div>
+          <h4 class="font-heading font-bold text-white mb-4">Quick Links</h4>
+          <ul class="space-y-3 text-gray-400 text-sm">
+            <li><a href="/" class="hover:text-cyan transition-colors">Accueil</a></li>
+            <li><a href="/services" class="hover:text-cyan transition-colors">Services</a></li>
+            <li><a href="/portfolio" class="hover:text-cyan transition-colors">Portfolio</a></li>
+            <li><a href="/contact" class="hover:text-cyan transition-colors">Contact</a></li>
+          </ul>
+        </div>
       </div>
       
       <!-- Bottom -->
@@ -59,3 +71,7 @@
     </div>
   </footer>
 </template>
+
+<script setup>
+</script>
+

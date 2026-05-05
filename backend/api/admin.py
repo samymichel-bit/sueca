@@ -1,4 +1,5 @@
-
+from django.contrib import admin
+from .models import Service, Project, Talent, TeamMember, Testimonial, ContactMessage
 
 admin.site.register(Service)
 admin.site.register(Project)
