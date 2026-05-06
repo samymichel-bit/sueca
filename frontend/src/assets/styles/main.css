@@ -1,27 +1,210 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Lora:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Base ───────────────────────────────────────────── */
 @layer base {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: #FAF7F2;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background-color: #FAFAFA;
     color: #0D0D0D;
     overflow-x: hidden;
-    line-height: 1.6;
+    line-height: 1.65;
   }
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Serif Display', Georgia, serif;
+    line-height: 1.15;
     letter-spacing: -0.02em;
   }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  ::selection {
+    background: #4CAF82;
+    color: #fff;
+  }
+}
+
+/* ── Components ─────────────────────────────────────── */
+@layer components {
+
+  /* Boutons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-full font-body font-semibold text-sm
+           bg-noir text-blanc
+           border-2 border-noir
+           transition-all duration-300
+           hover:bg-transparent hover:text-noir
+           active:scale-95;
+  }
+
+  .btn-menthe {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-full font-body font-semibold text-sm
+           bg-menthe text-blanc
+           border-2 border-menthe
+           transition-all duration-300
+           hover:bg-transparent hover:text-menthe
+           active:scale-95;
+    box-shadow: 0 4px 24px rgba(76,175,130,0.3);
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-full font-body font-semibold text-sm
+           bg-transparent text-blanc
+           border-2 border-blanc/40
+           transition-all duration-300
+           hover:border-blanc hover:bg-blanc/10
+           active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-full font-body font-medium text-sm
+           text-gris hover:text-noir hover:bg-grisClair
+           transition-all duration-200;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-blanc rounded-2xl p-6 shadow-card
+           border border-noir/5
+           transition-all duration-300
+           hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  .card-dark {
+    @apply bg-noir/90 rounded-2xl p-6
+           border border-blanc/10
+           transition-all duration-300
+           hover:-translate-y-1;
+  }
+
+  .card-glass {
+    @apply bg-blanc/60 backdrop-blur-md rounded-2xl p-6
+           border border-blanc/80
+           shadow-card
+           transition-all duration-300
+           hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-brand bg-clip-text text-transparent;
+  }
+
+  /* Section */
+  .section {
+    @apply py-20 px-4;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-5xl font-heading font-bold text-noir mb-4;
+  }
+
+  .section-sub {
+    @apply text-gris font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full h-13 px-4 py-3 rounded-xl font-body text-sm
+           bg-blanc border border-noir/15
+           text-noir placeholder-gris
+           focus:outline-none focus:border-menthe focus:ring-2 focus:ring-menthe/20
+           transition-all duration-200;
+  }
+
+  .input-dark {
+    @apply w-full h-13 px-4 py-3 rounded-xl font-body text-sm
+           bg-blanc/5 border border-blanc/15
+           text-blanc placeholder-blanc/40
+           focus:outline-none focus:border-menthe focus:ring-2 focus:ring-menthe/20
+           transition-all duration-200;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           text-xs font-body font-semibold uppercase tracking-wider;
+  }
+
+  .badge-menthe {
+    @apply badge bg-menthe-light text-menthe-dark;
+  }
+
+  .badge-rose {
+    @apply badge bg-rose-light text-rose-dark;
+  }
+
+  /* Nav link */
+  .nav-link {
+    @apply relative text-sm font-body font-medium text-blanc/70
+           hover:text-blanc transition-colors duration-200
+           after:absolute after:bottom-0 after:left-0 after:h-px after:w-0
+           after:bg-menthe after:transition-all after:duration-300
+           hover:after:w-full;
+  }
+
+  .nav-link.router-link-active {
+    @apply text-blanc after:w-full;
+  }
+
+  /* Blob décoratif */
+  .blob {
+    @apply absolute rounded-full blur-3xl opacity-30 pointer-events-none;
+    animation: blob 9s ease-in-out infinite;
+  }
+
+  /* Loading skeleton */
+  .skeleton {
+    @apply bg-gris/10 rounded-lg animate-pulse;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-12 h-1 rounded-full bg-gradient-brand my-4;
+  }
+}
+
+/* ── Utilities ──────────────────────────────────────── */
+@layer utilities {
+  .h-13 { height: 3.25rem; }
+
+  .text-balance { text-wrap: balance; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+}
+
+/* ── Page transitions ───────────────────────────────── */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }

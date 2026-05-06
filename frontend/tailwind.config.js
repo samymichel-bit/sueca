@@ -4,41 +4,83 @@ export default {
   theme: {
     extend: {
       colors: {
-        noir: '#0D0D0D',
-        bleu: '#1E2A78',
-        creme: '#FAF7F2',
-        or: '#D4AF37',
-        terre: '#C87A5C',
-        // Legacy futuriste (reduced opacity)
-        dark: '#0a0a0f',
-        darkSecondary: '#12121f',
-        cyan: '#00f0ff',
-        purple: '#7b2ff7',
-        pink: '#f207b8',
+        // ── Palette SUECA (issue du logo) ──
+        noir:    '#0D0D0D',
+        blanc:   '#FAFAFA',
+        menthe:  '#4CAF82',   // vert du logo
+        rose:    '#E040A0',   // rose/magenta du logo
+        gris:    '#6B7280',   // textes secondaires
+        grisClair: '#F4F4F5', // fond sections alternées
+
+        // tokens utilisés dans tes composants (alignés sur la palette du logo)
+        or: '#F2B35B',       // orange doré
+        terre: '#7A5C3A',   // brun terre
+        bleu: '#2F80ED',    // bleu
+
+        // variantes "bg-*" / "from-*" / "to-*" attendues
+        creme: '#F5F0E8',
+        dark: '#0D0D0D',
+
+        // nuances
+
+        // tokens utilisés par certaines classes shadow/* glow/* dans tes composants
+        'shadow-or-glow': '0 0 24px rgba(242,179,91,0.35)',
+        'shadow-bleu-glow': '0 0 24px rgba(47,128,237,0.35)',
+        'shadow-rose-glow': '0 0 24px rgba(224,64,160,0.35)',
+        'menthe-light': '#D1F0E2',
+        'menthe-dark':  '#2E7D57',
+        'rose-light':   '#FCE4F5',
+        'rose-dark':    '#9C2070',
       },
       fontFamily: {
-        heading: ['Poppins', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        accent: ['Lora', 'serif'],
-        orbitron: ['Orbitron', 'sans-serif'],
-        rajdhani: ['Rajdhani', 'sans-serif'],
+        heading: ['"DM Serif Display"', 'Georgia', 'serif'],
+        body:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', 'monospace'],
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
-        'gradient-shift': 'gradientShift 8s ease infinite',
-        'pulse-halo': 'pulseHalo 2s infinite',
-        'label-slide': 'labelSlide 0.3s ease-out',
+        'float':       'float 7s ease-in-out infinite',
+        'blob':        'blob 9s ease-in-out infinite',
+        'blob-delay':  'blob 9s ease-in-out 3s infinite',
+        'fade-up':     'fadeUp 0.6s ease-out both',
+        'slide-right': 'slideRight 0.5s ease-out both',
+        'pulse-soft':  'pulseSoft 3s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%,100%': { transform: 'translateY(0px)' },
+          '50%':     { transform: 'translateY(-18px)' },
+        },
+        blob: {
+          '0%,100%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' },
+          '50%':     { borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%' },
+        },
+        fadeUp: {
+          from: { opacity: '0', transform: 'translateY(24px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideRight: {
+          from: { opacity: '0', transform: 'translateX(-24px)' },
+          to:   { opacity: '1', transform: 'translateX(0)' },
+        },
+        pulseSoft: {
+          '0%,100%': { opacity: '0.6' },
+          '50%':     { opacity: '1' },
+        },
       },
       boxShadow: {
-        'terre-glow': '0 0 10px rgba(200, 122, 92, 0.4), 0 0 20px rgba(200, 122, 92, 0.2), 0 0 30px rgba(200, 122, 92, 0.1)',
-        'or-glow': '0 0 15px rgba(212, 175, 55, 0.6), 0 0 25px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.15)',
-        'bleu-glow': '0 0 10px rgba(30, 42, 120, 0.5), 0 0 20px rgba(30, 42, 120, 0.25)',
-        'glass': '0 8px 32px rgba(13, 13, 13, 0.5), inset 0 1px 0 rgba(250, 247, 242, 0.15)',
-        'glass-hover': '0 20px 40px rgba(13, 13, 13, 0.6), 0 0 30px rgba(212, 175, 55, 0.2), inset 0 1px 0 rgba(250, 247, 242, 0.25)',
+        'menthe': '0 4px 24px rgba(76,175,130,0.25)',
+        'rose':   '0 4px 24px rgba(224,64,160,0.25)',
+        'card':   '0 2px 16px rgba(13,13,13,0.08)',
+        'card-hover': '0 8px 40px rgba(13,13,13,0.14)',
+        'or-glow': '0 0 24px rgba(242,179,91,0.35)',
+        'bleu-glow': '0 0 24px rgba(47,128,237,0.35)',
+        'rose-glow': '0 0 24px rgba(224,64,160,0.35)',
+      },
+      backgroundImage: {
+        'gradient-brand': 'linear-gradient(135deg, #4CAF82 0%, #E040A0 100%)',
+        'gradient-hero':  'linear-gradient(160deg, #0D0D0D 0%, #1a1a1a 60%, #0f2318 100%)',
       },
     },
   },
   plugins: [],
 };
-
