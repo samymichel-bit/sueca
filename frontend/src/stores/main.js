@@ -25,65 +25,65 @@ export const useMainStore = defineStore('main', {
   }),
   actions: {
     async fetchServices() {
-      this.loading.services = true
-      this.errors.services = null
+      this.loading.services = true;
+      this.errors.services = null;
       try {
-        const { data } = await api.get('/services/')
-        this.services = data
+        const response = await api.get('/services/');
+        // L'API utilise la pagination : on récupère le tableau 'results'
+        this.services = response.data.results || response.data;
       } catch (e) {
-        this.errors.services = e
+        this.errors.services = e;
       } finally {
-        this.loading.services = false
+        this.loading.services = false;
       }
     },
     async fetchProjects() {
-      this.loading.projects = true
-      this.errors.projects = null
+      this.loading.projects = true;
+      this.errors.projects = null;
       try {
-        const { data } = await api.get('/projects/')
-        this.projects = data
+        const response = await api.get('/projects/');
+        this.projects = response.data.results || response.data;
       } catch (e) {
-        this.errors.projects = e
+        this.errors.projects = e;
       } finally {
-        this.loading.projects = false
+        this.loading.projects = false;
       }
     },
     async fetchTestimonials() {
-      this.loading.testimonials = true
-      this.errors.testimonials = null
+      this.loading.testimonials = true;
+      this.errors.testimonials = null;
       try {
-        const { data } = await api.get('/testimonials/')
-        this.testimonials = data
+        const response = await api.get('/testimonials/');
+        this.testimonials = response.data.results || response.data;
       } catch (e) {
-        this.errors.testimonials = e
+        this.errors.testimonials = e;
       } finally {
-        this.loading.testimonials = false
+        this.loading.testimonials = false;
       }
     },
     async fetchTeamMembers() {
-      this.loading.teamMembers = true
-      this.errors.teamMembers = null
+      this.loading.teamMembers = true;
+      this.errors.teamMembers = null;
       try {
-        const { data } = await api.get('/team/')
-        this.teamMembers = data
+        const response = await api.get('/team/');
+        this.teamMembers = response.data.results || response.data;
       } catch (e) {
-        this.errors.teamMembers = e
+        this.errors.teamMembers = e;
       } finally {
-        this.loading.teamMembers = false
+        this.loading.teamMembers = false;
       }
     },
     async fetchTalents() {
-      this.loading.talents = true
-      this.errors.talents = null
+      this.loading.talents = true;
+      this.errors.talents = null;
       try {
-        const { data } = await api.get('/talents/')
-        this.talents = data
+        const response = await api.get('/talents/');
+        this.talents = response.data.results || response.data;
       } catch (e) {
-        this.errors.talents = e
+        this.errors.talents = e;
       } finally {
-        this.loading.talents = false
+        this.loading.talents = false;
       }
     },
   },
 });
-

@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [
     'Hacksam01.pythonanywhere.com',
     'localhost',
     '127.0.0.1',
+    '192.168.1.194',
     # Ajouter le futur domaine ici
 ]
 
