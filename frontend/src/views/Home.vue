@@ -12,14 +12,19 @@
         </div>
 
         <!-- Loading -->
-        <div v-if="store.loading.services" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          v-if="store.loading.services"
+          class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           <div v-for="n in 3" :key="n" class="skeleton h-64 rounded-2xl"></div>
         </div>
 
         <!-- Error -->
         <div v-else-if="store.errors.services" class="text-center py-10">
           <p class="text-gris font-body">{{ $t('common.error') }}</p>
-          <button @click="store.fetchServices()" class="btn-ghost mt-3">{{ $t('common.retry') }}</button>
+          <button @click="store.fetchServices()" class="btn-ghost mt-3">
+            {{ $t('common.retry') }}
+          </button>
         </div>
 
         <!-- Data -->
@@ -84,6 +89,7 @@
     <section class="relative py-24 px-4 bg-noir overflow-hidden text-center">
       <div class="blob w-80 h-80 bg-menthe top-0 -right-20 animate-blob"></div>
       <div class="blob w-60 h-60 bg-rose bottom-0 -left-16 animate-blob-delay"></div>
+
       <div class="container mx-auto relative z-10">
         <h2 class="text-3xl md:text-5xl font-heading font-bold text-blanc mb-6">
           {{ $t('home.ctaTitle') }}
@@ -107,20 +113,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useMainStore } from '@/stores/main'
-import HeroSection     from '@/components/HeroSection.vue'
-import ServiceCard     from '@/components/ServiceCard.vue'
-import ProjectCard     from '@/components/ProjectCard.vue'
+import HeroSection from '@/components/HeroSection.vue'
+import ServiceCard from '@/components/ServiceCard.vue'
+import ProjectCard from '@/components/ProjectCard.vue'
 import TestimonialCard from '@/components/TestimonialCard.vue'
-import Lightbox        from '@/components/Lightbox.vue'
+import Lightbox from '@/components/Lightbox.vue'
 
 const store = useMainStore()
-const lightboxOpen   = ref(false)
+const lightboxOpen = ref(false)
 const lightboxImages = ref([])
 
 function openLightbox(project) {
   if (!project.cover_image) return
   lightboxImages.value = [project.cover_image]
-  lightboxOpen.value   = true
+  lightboxOpen.value = true
 }
 
 onMounted(() => {
@@ -129,3 +135,4 @@ onMounted(() => {
   store.fetchTestimonials()
 })
 </script>
+

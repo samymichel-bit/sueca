@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Service, Project, Talent, TeamMember, Testimonial, ContactMessage
+from .models import (
+    Service, Project, Talent, TeamMember, Testimonial, ContactMessage,
+    ServiceWorkflow, ServiceOrder, OrderPhase,
+    TalentType,  # ← ajouté
+)
 
 admin.site.site_header  = "SUECA Administration"
 admin.site.site_title   = "SUECA Admin"
@@ -51,7 +55,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Talent)
 class TalentAdmin(admin.ModelAdmin):
-    list_display  = ['full_name', 'is_active', 'preview_photo']
+    list_display  = ['full_name', 'display_types', 'is_active', 'preview_photo']
     list_editable = ['is_active']
     search_fields = ['full_name']
 
@@ -60,6 +64,10 @@ class TalentAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" height="40" style="border-radius:50%"/>', obj.photo.url)
         return '—'
     preview_photo.short_description = 'Photo'
+
+    def display_types(self, obj):
+        return ", ".join([t.name for t in obj.types.all()])
+    display_types.short_description = "Types"
 
 
 @admin.register(TeamMember)
@@ -102,4 +110,29 @@ class ContactMessageAdmin(admin.ModelAdmin):
     readonly_fields = ['name', 'email', 'phone', 'company', 'service', 'message', 'created_at']
 
     def has_add_permission(self, request):
-        return False  # Les messages viennent uniquement du formulaire
+        return False
+
+
+# ===== V2 : Workflow & Commandes =====
+
+@admin.register(ServiceWorkflow)
+class ServiceWorkflowAdmin(admin.ModelAdmin):
+    list_display = ('service', 'name', 'order', 'default_price')
+
+@admin.register(ServiceOrder)
+class ServiceOrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'client_name', 'service', 'status', 'created_at')
+    list_filter = ('status', 'service')
+
+@admin.register(OrderPhase)
+class OrderPhaseAdmin(admin.ModelAdmin):
+    list_display = ('service_order', 'name', 'status', 'price', 'due_date')
+    list_filter = ('status',)
+
+
+# ===== V2 : Marketplace RH =====
+
+@admin.register(TalentType)
+class TalentTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}

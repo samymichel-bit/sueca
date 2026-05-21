@@ -1,13 +1,19 @@
 from rest_framework import viewsets, mixins, status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
+from .models import ServiceOrder
+from .serializers import ServiceOrderSerializer
+from .models import ServiceWorkflow
+from .serializers import ServiceWorkflowSerializer
 
-from .models import Service, Project, Talent, TeamMember, Testimonial, ContactMessage
+from .models import Service, Project, Talent, TeamMember, Testimonial, ContactMessage, TalentType
 from .serializers import (
     ServiceSerializer, ProjectSerializer, TalentSerializer,
-    TeamMemberSerializer, TestimonialSerializer, ContactMessageSerializer
+    TeamMemberSerializer, TestimonialSerializer, ContactMessageSerializer,
+    TalentTypeSerializer, ServiceOrderSerializer, ServiceWorkflowSerializer,
+    OrderPhaseSerializer   # ← ajouté
 )
 
 
@@ -83,6 +89,76 @@ class ContactMessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 fail_silently=False,
             )
         except Exception as e:
-            # Ne pas bloquer la réponse si l'email échoue
             import logging
             logging.getLogger(__name__).error(f"Email failed: {e}")
+
+
+# ── V2 : Paiement simulé (corrigé avec service_order) ────────
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .models import OrderPhase
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def process_payment(request, phase_id):
+    """Simule le paiement d'une phase"""
+    try:
+        phase = OrderPhase.objects.get(id=phase_id)
+    except OrderPhase.DoesNotExist:
+        return Response({'error': 'Phase non trouvée ou non autorisée'}, status=404)
+    
+    if phase.status == 'paid':
+        return Response({'error': 'Cette phase a déjà été payée'}, status=400)
+    
+    # Simulation : on passe la phase en "payée"
+    phase.status = 'paid'
+    phase.save()
+    
+    # Si toutes les phases sont payées, on peut faire avancer la commande
+    service_order = phase.service_order
+    if all(p.status == 'paid' for p in service_order.phases.all()):
+        service_order.status = 'completed'
+        service_order.save()
+    
+    return Response({
+        'success': True,
+        'phase': phase.name,
+        'order_status': service_order.status,
+    })
+class TalentTypeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = TalentType.objects.all()
+    serializer_class = TalentTypeSerializer
+    permission_classes = [AllowAny]
+
+
+
+
+
+class ServiceOrderViewSet(mixins.CreateModelMixin,
+                          mixins.ListModelMixin,
+                          mixins.RetrieveModelMixin,
+                          viewsets.GenericViewSet):
+    serializer_class = ServiceOrderSerializer
+    permission_classes = [IsAuthenticated]  # Seuls les utilisateurs connectés peuvent voir leurs commandes
+
+    def get_queryset(self):
+        # Retourne UNIQUEMENT les commandes du client connecté
+        return ServiceOrder.objects.filter(client_email=self.request.user.email)
+
+    def perform_create(self, serializer):
+        # Assigne automatiquement l'email du client connecté
+        serializer.save(client_email=self.request.user.email)
+    
+    
+
+
+class ServiceWorkflowViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = ServiceWorkflow.objects.all()
+    serializer_class = ServiceWorkflowSerializer
+    permission_classes = [AllowAny]
+    filterset_fields = ['service']    
+class OrderPhaseViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = OrderPhaseSerializer
+    permission_classes = [AllowAny]
+    queryset = OrderPhase.objects.all()
+    filterset_fields = ['service_order']

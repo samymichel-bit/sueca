@@ -11,7 +11,7 @@
           <h3 class="text-2xl font-heading font-bold text-gradient mb-4">
             ◆ SUECA
           </h3>
-          <p class="text-blanc/60 text-sm mb-6 max-w-md">Start-Up Event's Consulting Agency — Depuis 2017. Nous illuminons vos événements avec une touche de futur.</p>
+          <p class="text-blanc/60 text-sm mb-6 max-w-md">{{ $t('footer.tagline') }}</p>
           <div class="flex gap-4">
             <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-blanc/5 border border-blanc/10 hover:border-menthe/50 hover:bg-menthe/10 transition-all duration-300">
               <svg class="w-5 h-5 text-menthe" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.875 1.051-.615 1.805-1.585 2.175-2.772-.983.567-2.085.98-3.25 1.198-.93-.963-2.253-1.565-3.715-1.565-2.812 0-5.091 2.279-5.091 5.091 0 .399.045.788.131 1.16-4.23-.211-7.973-2.239-10.485-5.322-.442.76-.695 1.645-.695 2.588 0 1.765 1.119 3.322 2.82 4.235-.798-.025-1.55-.245-2.205-.608v.06c0 2.468 1.754 4.528 4.079 4.99-.425.116-.873.178-1.337.178-.328 0-.645-.032-.955-.092.647 2.019 2.525 3.488 4.75 3.531-1.741 1.365-3.934 2.197-6.313 2.197-.411 0-.817-.024-1.215-.071 2.255 1.447 4.928 2.291 7.803 2.291 9.368 0 14.489-7.764 14.489-14.489 0-.221-.004-.441-.012-.659.993-.716 1.854-1.608 2.536-2.625z"/></svg>
@@ -27,7 +27,7 @@
         
         <!-- Contact -->
         <div>
-          <h4 class="font-heading font-bold text-white mb-4">Contact</h4>
+          <h4 class="font-heading font-bold text-white mb-4">{{ $t('footer.contact') }}</h4>
           <ul class="space-y-3 text-blanc/60 text-sm">
             <li class="flex items-center gap-3">
               <span class="text-menthe">📞</span> +237 652 11 72 45
@@ -40,7 +40,7 @@
         
         <!-- Address -->
         <div>
-          <h4 class="font-heading font-bold text-white mb-4">Adresse</h4>
+          <h4 class="font-heading font-bold text-white mb-4">{{ $t('footer.address') }}</h4>
           <ul class="space-y-3 text-blanc/60 text-sm">
             <li class="flex items-center gap-3">
               <span class="text-rose">📍</span> Ndogbati 1er, Douala
@@ -65,8 +65,8 @@
       
       <!-- Bottom -->
       <div class="mt-16 pt-8 border-t border-blanc/10 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-blanc/40 text-sm">© 2024 SUECA. Tous droits réservés.</p>
-        <p class="text-blanc/40 text-sm font-mono">Créé avec <span class="text-rose">♦</span> pour le futur</p>
+        <p class="text-blanc/40 text-sm">© 2026 SUECA. Tous droits réservés.</p>
+        <p class="text-blanc/40 text-sm font-mono">Créé par <span class="text-rose"><a href="/https://hacksam-github-io.vercel.app/" class="hover:text-menthe transition-colors">HackSam</a></span> </p>
       </div>
     </div>
   </footer>

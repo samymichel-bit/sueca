@@ -4,10 +4,10 @@
       <!-- Header -->
       <div class="text-center mb-16">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-creme mb-6 leading-tight">
-          Nos <span class="bg-clip-text text-transparent bg-gradient-to-r from-or via-terre to-bleu">services</span>
+          {{ $t('services.title') }}
         </h1>
         <p class="text-creme/80 font-body max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-          Solutions élégantes et efficaces pour transformer votre vision en réalité.
+          {{ $t('services.sub') }}
         </p>
       </div>
       

@@ -70,7 +70,6 @@ class Talent(models.Model):
     photo      = models.ImageField(upload_to='talents/')
     instagram  = models.URLField(blank=True)
     is_active  = models.BooleanField(default=True)
-    types = models.ManyToManyField('TalentType', blank=True, verbose_name="Types de talent")
 
     class Meta:
         app_label = 'api'
@@ -144,16 +143,15 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"{self.name} — {self.email}"
 
-
-# ======================== V2 : WORKFLOW & COMMANDES ========================
+# --- V2 : Workflow & Commandes ---
 
 class ServiceWorkflow(models.Model):
     """Plan d'action standard pour un service donné"""
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='workflows', verbose_name="Service")
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='workflows')
     name = models.CharField(max_length=200, verbose_name="Nom de la phase")
     description = models.TextField(blank=True, verbose_name="Description")
     order = models.PositiveIntegerField(default=0, verbose_name="Ordre")
-    default_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Prix indicatif (FCFA)")
+    default_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Prix indicatif")
 
     class Meta:
         app_label = 'api'
@@ -164,11 +162,10 @@ class ServiceWorkflow(models.Model):
     def __str__(self):
         return f"{self.service.title} – {self.name}"
 
-
 class ServiceOrder(models.Model):
     """Une commande passée par un client"""
     STATUS_CHOICES = [
-        ('pending', 'En attente de paiement'),
+        ('pending', 'En attente'),
         ('consulting', 'Consultation en cours'),
         ('planning', 'Planification'),
         ('execution', 'Exécution'),
@@ -193,50 +190,99 @@ class ServiceOrder(models.Model):
     def __str__(self):
         return f"Commande #{self.id} – {self.client_name}"
 
+class OrderPhase(models.Model):
+    """Une phase réelle dans une commande"""
+    PHASE_STATUS = [
+        ('pending', 'À faire'),
+        ('in_progress', 'En cours'),
+        ('completed', 'Terminée'),
+        ('paid', 'Payée'),
+    ]
+    order = models.ForeignKey(ServiceOrder, on_delete=models.CASCADE, related_name='phases')
+    name = models.CharField(max_length=200, verbose_name="Nom de la phase")
+    description = models.TextField(blank=True, verbose_name="Description")
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Prix (FCFA)")
+    status = models.CharField(max_length=20, choices=PHASE_STATUS, default='pending', verbose_name="Statut")
+    due_date = models.DateField(null=True, blank=True, verbose_name="Date limite")
+    order = models.PositiveIntegerField(default=0, verbose_name="Ordre")
+
+    class Meta:
+        app_label = 'api'
+        verbose_name = "Phase de commande"
+        verbose_name_plural = "Phases de commande"
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.order.title} – {self.name}"
+
+# --- V2 : Workflow & Commandes ---
+
+class ServiceWorkflow(models.Model):
+    """Plan d'action standard pour un service donné"""
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='workflows')
+    name = models.CharField(max_length=200, verbose_name="Nom de la phase")
+    description = models.TextField(blank=True, verbose_name="Description")
+    order = models.PositiveIntegerField(default=0, verbose_name="Ordre")
+    default_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Prix indicatif")
+
+    class Meta:
+        app_label = 'api'
+        verbose_name = "Phase standard"
+        verbose_name_plural = "Phases standard"
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.service.title} – {self.name}"
+
+class ServiceOrder(models.Model):
+    """Une commande passée par un client"""
+    STATUS_CHOICES = [
+        ('pending', 'En attente'),
+        ('consulting', 'Consultation en cours'),
+        ('planning', 'Planification'),
+        ('execution', 'Exécution'),
+        ('completed', 'Terminée'),
+        ('cancelled', 'Annulée'),
+    ]
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True, verbose_name="Service")
+    client_name = models.CharField(max_length=200, verbose_name="Nom du client")
+    client_email = models.EmailField(verbose_name="Email")
+    client_phone = models.CharField(max_length=30, verbose_name="Téléphone")
+    description = models.TextField(verbose_name="Description du besoin")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name="Statut")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Dernière modification")
+
+    class Meta:
+        app_label = 'api'
+        verbose_name = "Commande"
+        verbose_name_plural = "Commandes"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Commande #{self.id} – {self.client_name}"
 
 class OrderPhase(models.Model):
     """Une phase réelle dans une commande"""
     PHASE_STATUS = [
         ('pending', 'À faire'),
         ('in_progress', 'En cours'),
-        ('paid', 'Payée'),
         ('completed', 'Terminée'),
+        ('paid', 'Payée'),
     ]
-    service_order = models.ForeignKey(ServiceOrder, on_delete=models.CASCADE, related_name='phases', verbose_name="Commande")
+    order = models.ForeignKey(ServiceOrder, on_delete=models.CASCADE, related_name='phases')
     name = models.CharField(max_length=200, verbose_name="Nom de la phase")
     description = models.TextField(blank=True, verbose_name="Description")
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Prix (FCFA)")
     status = models.CharField(max_length=20, choices=PHASE_STATUS, default='pending', verbose_name="Statut")
     due_date = models.DateField(null=True, blank=True, verbose_name="Date limite")
-    phase_order = models.PositiveIntegerField(default=0, verbose_name="Ordre")
+    order = models.PositiveIntegerField(default=0, verbose_name="Ordre")
 
     class Meta:
         app_label = 'api'
         verbose_name = "Phase de commande"
         verbose_name_plural = "Phases de commande"
-        ordering = ['phase_order']
+        ordering = ['order']
 
     def __str__(self):
-        return f"{self.service_order.client_name} – {self.name}"
-# --- V2 : Types de talents pour la marketplace RH ---
-
-class TalentType(models.Model):
-    """Catégorie de talent (Hôtesse, Mannequin, Expert…)"""
-    name = models.CharField(max_length=100, unique=True, verbose_name="Nom")
-    slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True, verbose_name="Description")
-
-    class Meta:
-        app_label = 'api'
-        verbose_name = "Type de talent"
-        verbose_name_plural = "Types de talents"
-        ordering = ['name']
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
+        return f"{self.order.title} – {self.name}"

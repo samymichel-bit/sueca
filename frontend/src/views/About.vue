@@ -6,10 +6,10 @@
       <div class="blob w-64 h-64 bg-rose/10 bottom-0 -left-10 absolute"></div>
       <div class="container mx-auto relative z-10">
         <h1 class="text-5xl md:text-7xl font-heading font-bold mb-4">
-          À <span class="text-gradient">propos</span>
+           <span class="text-gradient">{{ $t('about.title') }}</span>
         </h1>
         <p class="text-blanc/60 text-lg max-w-xl mx-auto">
-          Découvrez l'histoire et la mission de SUECA.
+          {{ $t('about.sub') }}
         </p>
       </div>
     </section>
@@ -31,19 +31,15 @@
         </div>
         <div class="space-y-6">
           <div class="card-glass p-8">
-            <h4 class="text-xl font-heading font-bold text-menthe mb-2">Notre Vision</h4>
+            <h4 class="text-xl font-heading font-bold text-menthe mb-2">{{ $t('about.vision') }}</h4>
             <p class="text-blanc/70 leading-relaxed">
-              Faciliter l'émergence et l'intégration des initiatives entrepreneuriales locales dans
-              le circuit du marché. Construire un écosystème dynamique, compétitif et solidaire qui
-              valorise l'économie locale et la richesse culturelle de notre région.
+              {{ $t('about.visionText') }}
             </p>
           </div>
           <div class="card-glass p-8">
-            <h4 class="text-xl font-heading font-bold text-rose mb-2">Notre Mission</h4>
+            <h4 class="text-xl font-heading font-bold text-rose mb-2">{{ $t('about.mission') }}</h4>
             <p class="text-blanc/70 leading-relaxed">
-              Éclairer les projets, les événements et les carrières avec une approche innovante,
-              humaine et professionnelle. Nous créons des expériences mémorables, des campagnes à
-              fort impact et des parcours de coaching taillés sur mesure.
+              {{ $t('about.missionText') }}
             </p>
           </div>
         </div>
@@ -53,21 +49,21 @@
     <!-- Valeurs -->
     <section class="section bg-noir">
       <div class="container mx-auto text-center">
-        <h2 class="section-title mb-12">Nos Valeurs</h2>
+        <h2 class="section-title mb-12">{{ $t('about.values') }}</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="card-glass p-6 flex flex-col items-center gap-3">
             <span class="text-3xl">💡</span>
-            <h5 class="font-heading font-bold">Innovation</h5>
+            <h5 class="font-heading font-bold">{{ $t('about.v1') }}</h5>
             <p class="text-blanc/50 text-sm">Créativité et digital pour des solutions modernes.</p>
           </div>
           <div class="card-glass p-6 flex flex-col items-center gap-3">
             <span class="text-3xl">✨</span>
-            <h5 class="font-heading font-bold">Excellence</h5>
+            <h5 class="font-heading font-bold">{{ $t('about.v2') }}</h5>
             <p class="text-blanc/50 text-sm">Qualité maximale dans chaque prestation.</p>
           </div>
           <div class="card-glass p-6 flex flex-col items-center gap-3">
             <span class="text-3xl">🎨</span>
-            <h5 class="font-heading font-bold">Créativité</h5>
+            <h5 class="font-heading font-bold">{{ $t('about.v3') }}</h5>
             <p class="text-blanc/50 text-sm">Sensibilité artistique au service de nos clients.</p>
           </div>
           <div class="card-glass p-6 flex flex-col items-center gap-3">
